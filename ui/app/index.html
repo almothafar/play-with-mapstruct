@@ -1,0 +1,134 @@
+<!doctype html>
+<html ng-app="uiApp" class="no-js" style="height: 100%;">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <base href="/ui/"/>
+
+  <title>CASO Apps</title>
+  <meta name="description" content="">
+  <link rel="shortcut icon" href="favicon.ico?v=1" type="image/x-icon"/>
+
+  <style>
+    .nav.navbar-nav.navbar-right.ng-hide {
+      /* this is just another form of hiding an element */
+      display: block !important;
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  </style>
+
+  <!-- Google Font: Open Sans -->
+  <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oswald:400,300,700">
+  <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+  <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+  <link rel="stylesheet" href="bower_components/select2/select2.css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
+  <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
+  <link rel="stylesheet" href="bower_components/angular-toggle-switch/angular-toggle-switch.css" />
+  <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/font-awesome.css">
+  <link rel="stylesheet" href="styles/animate.css">
+  <!-- endbuild -->
+</head>
+<body style="height: 100%;"  ng-controller="MainController">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<header class="navbar navbar-inverse" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+
+      <button type="button" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed"
+              class="navbar-toggle collapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" ng-href="view/home"><span class="fa fa-lock fa-lg"></span> Welcome App</a>
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+</header>
+
+<div class="container-fluid" style="min-height: calc(100% - 51px);margin-bottom: -62px;">
+  <div ng-view=""></div>
+</div>
+
+<footer class="copyright" style="height: 62px;">
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-sm-12">
+        <p>Copyright &copy; 2016.</p>
+      </div>
+      <!-- /.col -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+</footer>
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
+<script src="bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.js"></script>
+<script src="bower_components/angular-truncate/src/truncate.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
+<script src="bower_components/humanize-duration/humanize-duration.js"></script>
+<script src="bower_components/angular-timer/dist/angular-timer.js"></script>
+<script src="bower_components/angular-toggle-switch/angular-toggle-switch.js"></script>
+<script src="bower_components/angular-ui-mask/dist/mask.js"></script>
+<script src="bower_components/ui-select/dist/select.js"></script>
+<script src="bower_components/moment-range/dist/moment-range.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.controller.js"></script>
+<!-- endbuild -->
+</body>
+</html>

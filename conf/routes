@@ -1,0 +1,22 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET         /ui                             com.tuplejump.playYeoman.Yeoman.index
+GET         /ui/view/*any                   controllers.Home.redirectToUI(any)
+GET         /ui/view                        com.tuplejump.playYeoman.Yeoman.redirectRoot(base="/ui/")
+->          /ui/                            yeoman.Routes
+GET         /                               com.tuplejump.playYeoman.Yeoman.redirectRoot(base="/ui/")
+
+
+GET         /api/accounts/list              controllers.AccountsController.getAccountsList
+GET         /api/accounts/:accountId        controllers.AccountsController.getAccountDetailsById(accountId : Integer)
+
+
+GET         /api/users/currentUser          controllers.UsersController.getLoggedInUserDetails
+POST        /api/users/login                controllers.UsersController.login
+###save exception
+POST        /api/exception/save             controllers.Home.saveFrontendException()
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                   controllers.Assets.versioned(path="/public", file)

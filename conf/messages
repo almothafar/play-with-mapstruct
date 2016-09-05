@@ -1,0 +1,6 @@
+general.no_form_data=Invalid Operation, You are trying to send form without data
+critical.internal_server_error=Internal Server Error !
+
+account.email_exist=Email for admin of account already exist
+
+user.should_update_password=User should update not password

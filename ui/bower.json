@@ -1,0 +1,58 @@
+{
+  "name": "app",
+  "version": "1.1.2",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-cookies": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-sanitize": "^1.5.8",
+    "angular-touch": "^1.5.8",
+    "angular-bootstrap": "^2.0.1",
+    "angular-daterangepicker": "^0.2.2",
+    "angular-block-ui": "^0.2.2",
+    "angular-ui-select": "^0.19.0",
+    "angular-truncate": "*",
+    "angular-toastr": "^2.0.0",
+    "select2": "^3.5.4",
+    "moment": "^2.14.1",
+    "bootstrap": "^3.3.7",
+    "bootstrap-daterangepicker": "^2.1.24",
+    "angular-ui-grid": "^3.2.1",
+    "ng-table": "^0.8.3",
+    "angular-underscore-module": "^1.0.3",
+    "humanize-duration": "^3.9.1",
+    "angular-timer": "^1.3.4",
+    "angular-toggle-switch": "^1.3.0",
+    "angular-ui-mask": "^1.8.7",
+    "ui-select": "angular-ui-select#~0.19.0",
+    "moment-range": "^2.2.0",
+    "jquery-ui": "^1.12.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.8"
+  },
+  "appPath": "app",
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.js",
+        "dist/css/bootstrap.css",
+        "less/bootstrap.less"
+      ]
+    },
+    "select2": {
+      "dependencies": {},
+      "main": [
+        "select2.css"
+      ]
+    }
+  },
+  "resolutions": {
+    "angular": "^1.5.8",
+    "moment": "^2.14.1",
+    "humanize-duration": "^3.9.1",
+    "angular-bootstrap": "^2.0.1"
+  }
+}
