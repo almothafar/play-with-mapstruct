@@ -16,7 +16,7 @@ public interface AccountMapper {
     public static AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
     @Mappings({
-            @Mapping(target = "users", source = "users")
+            @Mapping(target = "users", ignore = true)
     })
     Account map(AccountDTO accountDTO);
 
