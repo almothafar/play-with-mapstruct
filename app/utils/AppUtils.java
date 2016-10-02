@@ -2,19 +2,8 @@ package utils;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import models.Account;
-import org.apache.commons.io.IOUtils;
-import play.Configuration;
-import play.Environment;
 import play.api.i18n.Lang;
 import play.i18n.MessagesApi;
-import services.AccountService;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 @Singleton

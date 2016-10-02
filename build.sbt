@@ -1,8 +1,11 @@
-name := """play-webapp"""
+name := """play-with-mapstruct"""
 
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean, Yeoman, LauncherJarPlugin)
+
+// The Typesafe snapshots repository
+resolvers += Resolver.url("Typesafe Ivy Snapshots Repository", url("https://oss.sonatype.org/content/repositories/snapshots/"))(Resolver.ivyStylePatterns)
 
 scalaVersion := "2.11.8"
 
@@ -19,5 +22,3 @@ libraryDependencies ++= Seq(
   "org.mapstruct" % "mapstruct-processor" % "1.1.0.CR1",
   "commons-io" % "commons-io" % "2.5"
 )
-
-//fork in run := true

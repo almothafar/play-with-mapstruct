@@ -11,6 +11,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING, length = 10)
+@DiscriminatorValue(value = "Local")
 public class User extends BaseModel {
     @ManyToOne(targetEntity = Account.class, fetch = FetchType.LAZY)
     @JsonBackReference

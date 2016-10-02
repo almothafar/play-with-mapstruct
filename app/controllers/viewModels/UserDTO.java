@@ -93,4 +93,34 @@ public class UserDTO extends BaseDTO {
         this.account = account;
         return this;
     }
+
+    public static class LocalUserDTO extends UserDTO {
+
+    }
+
+    public static class TwitterUserDTO extends UserDTO {
+        private String screenName;
+
+        public String getScreenName() {
+            return screenName;
+        }
+
+        public TwitterUserDTO setScreenName(String screenName) {
+            this.screenName = screenName;
+            return this;
+        }
+    }
+
+    public static class FacebookUserDTO extends UserDTO {
+        private String userId;
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public FacebookUserDTO setUserId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+    }
 }

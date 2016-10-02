@@ -3,13 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
-import com.avaje.ebean.annotation.WhoModified;
 import org.joda.time.DateTime;
-import play.Logger;
-import play.api.Play;
-import play.api.i18n.Lang;
-import play.i18n.MessagesApi;
-import utils.MsgKeys;
 
 import javax.persistence.*;
 
