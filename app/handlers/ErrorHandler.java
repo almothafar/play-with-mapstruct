@@ -1,10 +1,9 @@
 package handlers;
 
+import com.typesafe.config.Config;
 import exceptions.ApplicationException;
 import exceptions.BusinessException;
 import exceptions.NoRequestBodyException;
-import org.joda.time.DateTime;
-import play.Configuration;
 import play.Environment;
 import play.Logger;
 import play.api.OptionalSourceMapper;
@@ -16,6 +15,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 import utils.AppUtils;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -23,7 +23,7 @@ public class ErrorHandler extends DefaultHttpErrorHandler {
     private final Logger.ALogger errorLogger = Logger.of(ErrorHandler.class);
 
     @javax.inject.Inject
-    public ErrorHandler(Configuration configuration, Environment environment,
+    public ErrorHandler(Config configuration, Environment environment,
                         OptionalSourceMapper sourceMapper, javax.inject.Provider<Router> routes) {
         super(configuration, environment, sourceMapper, routes);
     }
@@ -56,7 +56,7 @@ public class ErrorHandler extends DefaultHttpErrorHandler {
 
     @Override
     protected CompletionStage<Result> onDevServerError(Http.RequestHeader request, UsefulException exception) {
-        errorLogger.error(AppUtils.concatStrings("Exception: method: ", request.path(), " time:", DateTime.now().toString(),
+        errorLogger.error(AppUtils.concatStrings("Exception: method: ", request.path(), " time:", LocalDateTime.now().toString(),
                 " uri=", request.uri(), " remote-address=", request.remoteAddress(), "cause: ", exception.getMessage()));
         if (exception instanceof NoRequestBodyException) {
             return CompletableFuture.completedFuture(

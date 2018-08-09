@@ -2,7 +2,6 @@ package models.users;
 
 import models.User;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

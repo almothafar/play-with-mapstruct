@@ -1,9 +1,9 @@
 package utils;
 
-import com.avaje.ebean.annotation.Transactional;
 import com.google.inject.Inject;
+import com.typesafe.config.Config;
+import io.ebean.annotation.Transactional;
 import models.Account;
-import play.Configuration;
 import play.Logger;
 import services.AccountService;
 import services.UserService;
@@ -21,7 +21,7 @@ public class DataUtils {
     }
 
     @Transactional
-    public Account seedAccount(Configuration configuration) {
+    public Account seedAccount(Config configuration) {
         String adminEmail = configuration.getString(AppConstants.INITIAL_ACCOUNT_ADMIN_EMAIL);
         List<Account> accounts = accountService.findListOfAccounts();
 

@@ -4,23 +4,26 @@ import akka.actor.ActorSystem;
 import akka.actor.Cancellable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.typesafe.config.Config;
+import io.ebean.annotation.Transactional;
 import models.Account;
-import org.joda.time.DateTime;
-import org.joda.time.Interval;
-import org.joda.time.LocalTime;
 import play.Application;
-import play.Configuration;
 import play.Environment;
 import play.Logger;
-import play.db.ebean.Transactional;
 import play.inject.ApplicationLifecycle;
 import scala.concurrent.duration.Duration;
 import services.AccountService;
 import utils.AppConstants;
 import utils.DataUtils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +37,7 @@ public class OnStartup {
 
     @Inject
     public OnStartup(final ActorSystem system,
-                     final Configuration configuration,
+                     final Config configuration,
                      final Application application,
                      final DataUtils utils,
                      final ApplicationLifecycle applicationLifecycle,
@@ -54,7 +57,7 @@ public class OnStartup {
     private void startSchedulers(final ActorSystem system, final AccountService accountService) {
 
         cancellableSchedules.add(system.scheduler().schedule(
-                Duration.create(nextExecutionInMillis(DateTime.now().getDayOfWeek()), TimeUnit.MILLISECONDS),
+                Duration.create(nextExecutionInMillis(LocalDateTime.now().getDayOfWeek().getValue()), TimeUnit.MILLISECONDS),
                 Duration.create(24, TimeUnit.HOURS),
                 accountService::checkAccountsExpiry,
                 system.dispatcher()
@@ -64,16 +67,18 @@ public class OnStartup {
     }
 
     @Transactional
-    private void createAccount(final Configuration configuration, final DataUtils utils) {
+    private void createAccount(final Config configuration, final DataUtils utils) {
         Account account = utils.seedAccount(configuration);
     }
 
     private long nextExecutionInMillis(int dayOfWeek) {
-        DateTime now = DateTime.now();
-        LocalTime time = LocalTime.now();
-        // closest time in day ignore the value of seconds and millis
-        DateTime closest = time.toDateTime(now).minuteOfDay().withMinimumValue().withDayOfWeek(dayOfWeek).plusHours(offsetFromMidnightInHours);
-        return new Interval(now, closest.isBefore(now) ? closest.plusWeeks(1) : closest).toDurationMillis();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime dayOfWeekWithTime = LocalDate.now().with(WeekFields.of(Locale.getDefault()).dayOfWeek(), dayOfWeek).atTime(LocalTime.MIDNIGHT).plusHours(8);
+        if (currentDateTime.isBefore(dayOfWeekWithTime)) {
+            return ChronoUnit.MILLIS.between(currentDateTime, dayOfWeekWithTime);
+        } else {
+            return ChronoUnit.MILLIS.between(currentDateTime, dayOfWeekWithTime.plusWeeks(1));
+        }
     }
 
     private void initStopHook(ApplicationLifecycle lifecycle) {

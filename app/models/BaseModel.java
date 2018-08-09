@@ -1,11 +1,12 @@
 package models;
 
-import com.avaje.ebean.Model;
-import com.avaje.ebean.annotation.CreatedTimestamp;
-import com.avaje.ebean.annotation.UpdatedTimestamp;
-import org.joda.time.DateTime;
+
+import io.ebean.Model;
+import io.ebean.annotation.CreatedTimestamp;
+import io.ebean.annotation.UpdatedTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 public abstract class BaseModel extends Model {
@@ -16,11 +17,11 @@ public abstract class BaseModel extends Model {
 
     @Column
     @CreatedTimestamp
-    private DateTime createdDate;
+    private LocalDateTime createdDate;
 
     @Column
     @UpdatedTimestamp
-    private DateTime updatedDate;
+    private LocalDateTime updatedDate;
 
     @Column
     @Version
@@ -38,20 +39,20 @@ public abstract class BaseModel extends Model {
         return this;
     }
 
-    public DateTime getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public BaseModel setCreatedDate(DateTime createdDate) {
+    public BaseModel setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
         return this;
     }
 
-    public DateTime getUpdatedDate() {
+    public LocalDateTime getUpdatedDate() {
         return updatedDate;
     }
 
-    public BaseModel setUpdatedDate(DateTime updatedDate) {
+    public BaseModel setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
         return this;
     }

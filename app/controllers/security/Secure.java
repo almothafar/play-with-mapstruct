@@ -2,7 +2,6 @@ package controllers.security;
 
 import com.google.inject.Inject;
 import models.User;
-import play.i18n.MessagesApi;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;

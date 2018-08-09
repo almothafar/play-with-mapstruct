@@ -30,17 +30,15 @@ angular
     'ui.select',
     'truncate',
     'toastr',
-    'daterangepicker',
     'blockUI',
     'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', 'ui.grid.grouping',
     'ngTable',
     'underscore',
     'toggle-switch',
-    'timer',
     'ui.mask'
   ])
   .config(function ($routeProvider, $locationProvider, blockUIConfig) {
-    blockUIConfig.autoBlock = true;
+    blockUIConfig.autoBlock = false;
     $locationProvider.html5Mode(true);
     $routeProvider
       .otherwise({

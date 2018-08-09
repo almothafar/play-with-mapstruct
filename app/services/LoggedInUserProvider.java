@@ -1,7 +1,8 @@
 package services;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.config.CurrentUserProvider;
+
+import io.ebean.Ebean;
+import io.ebean.config.CurrentUserProvider;
 import models.User;
 import play.mvc.Http;
 

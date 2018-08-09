@@ -9,15 +9,20 @@ import models.User;
 import play.libs.Json;
 import play.mvc.Result;
 import services.AccountService;
+import utils.AppUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class AccountsController extends BaseController {
+    private final AccountService accountService;
 
     @Inject
-    private AccountService accountService;
+    public AccountsController(AppUtils appUtils, AccountService accountService) {
+        super(appUtils);
+        this.accountService = accountService;
+    }
 
     public Result getAccountsList() {
         return ok(Json.toJson(AccountMapper.INSTANCE.map(accountService.findListOfAccounts())));

@@ -1,25 +1,29 @@
 package controllers;
 
 import com.google.inject.Inject;
-import org.joda.time.DateTime;
 import play.Logger;
-import play.api.mvc.Action;
-import play.api.mvc.AnyContent;
-import play.mvc.Controller;
 import play.mvc.Result;
+import utils.AppUtils;
+
+import java.time.LocalDateTime;
 
 public class Home extends BaseController {
 
-    @Inject
-    private com.tuplejump.playYeoman.Yeoman yeoman;
+//    private final GulpAssets gulpAssets;
 
-    public Action<AnyContent> redirectToUI(String any) {
-        return yeoman.at("index.html");
+    @Inject
+    public Home(AppUtils appUtils) {
+        super(appUtils);
+//        this.gulpAssets = gulpAssets;
     }
+
+//    public play.api.mvc.Action<AnyContent> redirectToUI(String any) {
+//        return gulpAssets.index();
+//    }
 
     public Result saveFrontendException() {
         String exception = getRequestBody().get("exception").asText();
-        Logger.warn(">>>> UI Exception: " + exception + " time:" + DateTime.now().toString());
+        Logger.warn(">>>> UI Exception: " + exception + " time:" + LocalDateTime.now().toString());
         return ok();
     }
 }

@@ -1,1 +1,1 @@
-activator clean compile stage dist
+sbt clean compile stage dist

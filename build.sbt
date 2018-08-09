@@ -2,23 +2,23 @@ name := """play-with-mapstruct"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean, Yeoman, LauncherJarPlugin)
+lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
+//gulpForce := false
 
-// The Typesafe snapshots repository
-resolvers += Resolver.url("Typesafe Ivy Snapshots Repository", url("https://oss.sonatype.org/content/repositories/snapshots/"))(Resolver.ivyStylePatterns)
-
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.6"
 
 libraryDependencies ++= Seq(
+  guice,
   javaJdbc,
-  cache,
-  javaWs,
+  ehcache,
+  ws,
   filters,
   evolutions,
-  "mysql" % "mysql-connector-java" % "5.1.39",
-  "com.typesafe.play" %% "play-mailer" % "5.0.0",
+  "org.mariadb.jdbc" % "mariadb-java-client" % "2.2.6",
+  "com.typesafe.play" %% "play-mailer" % "6.0.1",
+  "com.typesafe.play" %% "play-mailer-guice" % "6.0.1",
   "de.svenkubiak" % "jBCrypt" % "0.4",
-  "org.mapstruct" % "mapstruct-jdk8" % "1.1.0.CR1",
-  "org.mapstruct" % "mapstruct-processor" % "1.1.0.CR1",
-  "commons-io" % "commons-io" % "2.5"
+  "org.mapstruct" % "mapstruct-jdk8" % "1.2.0.Final",
+  "org.mapstruct" % "mapstruct-processor" % "1.2.0.Final",
+  "commons-io" % "commons-io" % "2.6",
 )

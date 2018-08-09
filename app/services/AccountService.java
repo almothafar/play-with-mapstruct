@@ -1,14 +1,11 @@
 package services;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.ExpressionList;
+
 import com.google.inject.Singleton;
 import exceptions.BusinessException;
+import io.ebean.Ebean;
 import models.Account;
 import models.User;
-import org.joda.time.DateTime;
-import utils.AppLogger;
-import utils.AppUtils;
 import utils.MsgKeys;
 
 import java.util.List;
@@ -23,7 +20,7 @@ public final class AccountService extends BaseService {
 
     public Account getAccountById(int accountId) {
         return Ebean.find(Account.class)
-                .where().eq("id", accountId).findUnique();
+                .where().eq("id", accountId).findOne();
     }
 
     public Account signup(String email, String accountName, String firstName, String lastName) {

@@ -10,12 +10,17 @@ import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
 import services.UserService;
+import utils.AppUtils;
 
 
 public class UsersController extends BaseController {
+    private final UserService userService;
 
     @Inject
-    private UserService userService;
+    public UsersController(AppUtils appUtils, UserService userService) {
+        super(appUtils);
+        this.userService = userService;
+    }
 
 
     @Security.Authenticated(Secure.class)

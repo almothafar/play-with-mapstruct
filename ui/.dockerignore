@@ -1,0 +1,10 @@
+.tmp
+.idea
+.idea_modules
+.classpath
+.project
+.settings
+logs
+dist
+src/bower_components
+node_modules
