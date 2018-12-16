@@ -56,7 +56,7 @@ create table accounts (
   id                            integer auto_increment not null,
   is_active                     tinyint(1) default 0 not null,
   name                          varchar(128) not null,
-  notes                         varchar(500),
+  description                   varchar(500),
   users_limit                   integer not null,
   created_date                  datetime(6) not null,
   updated_date                  datetime(6) not null,

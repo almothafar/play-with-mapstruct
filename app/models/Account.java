@@ -20,11 +20,11 @@ public class Account extends BaseModel<Account> {
     @Column(length = 500)
     @Constraints.MinLength(0)
     @Constraints.MaxLength(500)
-    private String notes;
+    private String description;
 
     @Column
-    @Constraints.Min(1)
-    private int usersLimit = 5;
+    @Constraints.Min(0)
+    private int usersLimit = 10;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -53,12 +53,12 @@ public class Account extends BaseModel<Account> {
         return this;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getDescription() {
+        return description;
     }
 
-    public Account setNotes(String notes) {
-        this.notes = notes;
+    public Account setDescription(String description) {
+        this.description = description;
         return this;
     }
 
