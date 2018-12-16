@@ -5,20 +5,20 @@ import com.google.inject.Inject;
 import controllers.security.CheckPassword;
 import controllers.security.Secure;
 import mappers.UserMapper;
+import play.i18n.MessagesApi;
 import play.libs.Json;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
 import services.UserService;
-import utils.AppUtils;
 
 
 public class UsersController extends BaseController {
     private final UserService userService;
 
     @Inject
-    public UsersController(AppUtils appUtils, UserService userService) {
-        super(appUtils);
+    public UsersController(UserService userService, MessagesApi messagesApi) {
+        super(messagesApi);
         this.userService = userService;
     }
 

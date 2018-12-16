@@ -4,12 +4,15 @@ package models;
 import io.ebean.Model;
 import io.ebean.annotation.CreatedTimestamp;
 import io.ebean.annotation.UpdatedTimestamp;
+import play.Logger;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public abstract class BaseModel extends Model {
+@SuppressWarnings("unchecked")
+public abstract class BaseModel<T extends BaseModel> extends Model {
+    private final Logger.ALogger logger = Logger.of(this.getClass());
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,48 +33,54 @@ public abstract class BaseModel extends Model {
     @Column
     private boolean isActive = true;
 
+    @Override
+    public boolean delete() {
+        logger.info("Deleting a record from database done by user id {} with account id {}", " internal ", null);
+        return super.delete();
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public BaseModel setId(Integer id) {
+    public T setId(Integer id) {
         this.id = id;
-        return this;
+        return (T) this;
     }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public BaseModel setCreatedDate(LocalDateTime createdDate) {
+    public T setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
-        return this;
+        return (T) this;
     }
 
     public LocalDateTime getUpdatedDate() {
         return updatedDate;
     }
 
-    public BaseModel setUpdatedDate(LocalDateTime updatedDate) {
+    public T setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
-        return this;
+        return (T) this;
     }
 
     public long getVersion() {
         return version;
     }
 
-    public BaseModel setVersion(long version) {
+    public T setVersion(long version) {
         this.version = version;
-        return this;
+        return (T) this;
     }
 
     public boolean isActive() {
         return isActive;
     }
 
-    public BaseModel setActive(boolean active) {
+    public T setActive(boolean active) {
         isActive = active;
-        return this;
+        return (T) this;
     }
 }

@@ -13,7 +13,6 @@ import play.http.DefaultHttpErrorHandler;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
-import utils.AppUtils;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
@@ -56,8 +55,8 @@ public class ErrorHandler extends DefaultHttpErrorHandler {
 
     @Override
     protected CompletionStage<Result> onDevServerError(Http.RequestHeader request, UsefulException exception) {
-        errorLogger.error(AppUtils.concatStrings("Exception: method: ", request.path(), " time:", LocalDateTime.now().toString(),
-                " uri=", request.uri(), " remote-address=", request.remoteAddress(), "cause: ", exception.getMessage()));
+        errorLogger.error("Exception: method: " + request.path() + " time:" + LocalDateTime.now().toString() +
+                " uri=" + request.uri() + " remote-address=" + request.remoteAddress() + "cause: " + exception.getMessage());
         if (exception instanceof NoRequestBodyException) {
             return CompletableFuture.completedFuture(
                     Results.badRequest(exception.getMessage()));

@@ -1,4 +1,4 @@
-package controllers.viewModels;
+package controllers.dto;
 
 
 public class UserDTO extends BaseDTO {

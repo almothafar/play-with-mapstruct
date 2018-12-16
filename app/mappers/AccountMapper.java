@@ -1,6 +1,6 @@
 package mappers;
 
-import controllers.viewModels.AccountDTO;
+import controllers.dto.AccountDTO;
 import models.Account;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

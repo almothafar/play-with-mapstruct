@@ -25,7 +25,7 @@ public class DataUtils {
         String adminEmail = configuration.getString(AppConstants.INITIAL_ACCOUNT_ADMIN_EMAIL);
         List<Account> accounts = accountService.findListOfAccounts();
 
-        if (accounts == null || accounts.size() == 0) {
+        if (accounts.size() == 0) {
             Logger.warn("Initial account not found, will new seed one");
             String password = configuration.getString(AppConstants.INITIAL_ACCOUNT_ADMIN_PASSWORD);
             String firstName = configuration.getString(AppConstants.INITIAL_ACCOUNT_ADMIN_FIRST_NAME);

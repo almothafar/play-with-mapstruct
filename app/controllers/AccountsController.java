@@ -1,15 +1,15 @@
 package controllers;
 
 import com.google.inject.Inject;
-import controllers.viewModels.AccountDTO;
+import controllers.dto.AccountDTO;
 import mappers.AccountMapper;
 import mappers.UserMapper;
 import models.Account;
 import models.User;
+import play.i18n.MessagesApi;
 import play.libs.Json;
 import play.mvc.Result;
 import services.AccountService;
-import utils.AppUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ public class AccountsController extends BaseController {
     private final AccountService accountService;
 
     @Inject
-    public AccountsController(AppUtils appUtils, AccountService accountService) {
-        super(appUtils);
+    public AccountsController(AccountService accountService, MessagesApi messagesApi) {
+        super(messagesApi);
         this.accountService = accountService;
     }
 

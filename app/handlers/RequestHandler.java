@@ -11,7 +11,6 @@ import play.mvc.Http;
 import play.mvc.Results;
 import play.routing.Router;
 import utils.AppLogger;
-import utils.AppUtils;
 
 /**
  * Created by Al-Mothafar Al-Hasan on 10/29/15.
@@ -27,8 +26,8 @@ public class RequestHandler implements HttpRequestHandler {
 
     @Override
     public HandlerForRequest handlerForRequest(Http.RequestHeader request) {
-        accessLogger.debug(AppUtils.concatStrings("Exception: method=", request.method(),
-                " uri=", request.uri(), " remote-address=", request.remoteAddress()));
+        accessLogger.debug("Exception: method=" + request.method() +
+                " uri=" + request.uri() + " remote-address=" + request.remoteAddress());
 
         Handler handler = router.route(request).orElseGet(() ->
                 EssentialAction.of(req -> Accumulator.done(Results.notFound()))

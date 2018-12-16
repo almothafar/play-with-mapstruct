@@ -1,6 +1,6 @@
 package mappers;
 
-import controllers.viewModels.UserDTO;
+import controllers.dto.UserDTO;
 import models.User;
 import models.users.FacebookUser;
 import models.users.LocalUser;

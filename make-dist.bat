@@ -1,1 +1,0 @@
-sbt clean compile stage dist

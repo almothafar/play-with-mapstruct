@@ -7,13 +7,10 @@ import com.google.inject.Singleton;
 import com.typesafe.config.Config;
 import io.ebean.annotation.Transactional;
 import models.Account;
-import play.Application;
-import play.Environment;
 import play.Logger;
 import play.inject.ApplicationLifecycle;
 import scala.concurrent.duration.Duration;
 import services.AccountService;
-import utils.AppConstants;
 import utils.DataUtils;
 
 import java.time.LocalDate;
@@ -31,23 +28,14 @@ import java.util.concurrent.TimeUnit;
 public class OnStartup {
 
     private final List<Cancellable> cancellableSchedules = new ArrayList<>();
-    private final int offsetFromMidnightInHours;
-    private final int firstDay;
 
 
     @Inject
     public OnStartup(final ActorSystem system,
                      final Config configuration,
-                     final Application application,
                      final DataUtils utils,
                      final ApplicationLifecycle applicationLifecycle,
-                     final AccountService accountService,
-                     final Environment environment) {
-
-        this.firstDay = configuration.getInt(AppConstants.FIRST_DAY_OF_WEEK_KEY);
-        // TODO should be in application.conf ?
-        // don't make it pass 23 hours its from 0 - 23 within the day this is why (n % 24)
-        this.offsetFromMidnightInHours = 0 % 24;
+                     final AccountService accountService) {
 
         createAccount(configuration, utils);
         startSchedulers(system, accountService);

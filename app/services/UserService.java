@@ -9,7 +9,7 @@ import models.User;
 import java.util.List;
 
 @Singleton
-public final class UserService extends BaseService {
+public final class UserService {
 
     public User findUserByEmail(String email) {
         return Ebean.find(User.class).where().and(Expr.eq("email", email), Expr.eq("isActive", true)).findOne();

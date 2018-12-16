@@ -2,26 +2,23 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import exceptions.NoRequestBodyException;
+import play.api.i18n.Lang;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
-import utils.AppUtils;
 import utils.MsgKeys;
 
 public class BaseController extends Controller {
 
-    private final AppUtils appUtils;
+    private final MessagesApi messagesApi;
 
-    public BaseController(AppUtils appUtils) {
-        this.appUtils = appUtils;
-    }
-
-    private String getMessage(String key, Object... args) {
-        return appUtils.getMessage(key, args);
+    public BaseController(MessagesApi messagesApi) {
+        this.messagesApi = messagesApi;
     }
 
     JsonNode getRequestBody() throws NoRequestBodyException {
         JsonNode requestBody = request().body().asJson();
         if (requestBody == null) {
-            throw new NoRequestBodyException(getMessage(MsgKeys.ERR_NO_FORM_DATA));
+            throw new NoRequestBodyException(messagesApi.get(Lang.defaultLang(), MsgKeys.ERR_NO_FORM_DATA));
         }
         return request().body().asJson();
     }

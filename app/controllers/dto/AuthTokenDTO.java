@@ -1,4 +1,4 @@
-package controllers.viewModels;
+package controllers.dto;
 
 public class AuthTokenDTO extends BaseDTO {
     private UserDTO user;

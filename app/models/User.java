@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.mindrot.jbcrypt.BCrypt;
 import play.data.validation.Constraints;
-import utils.AppUtils;
 
 import javax.persistence.*;
 
@@ -14,10 +13,10 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING, length = 10)
 @DiscriminatorValue(value = "Local")
-public class User extends BaseModel {
-    @ManyToOne(targetEntity = Account.class, fetch = FetchType.LAZY)
+public class User extends BaseModel<User> {
+    @ManyToOne(targetEntity = Account.class, fetch = FetchType.LAZY, optional = false)
     @JsonBackReference
-    private Account account;
+    protected Account account;
 
     @Column(length = 35, nullable = false)
     @Constraints.Required
@@ -65,7 +64,7 @@ public class User extends BaseModel {
     }
 
     public String getFullName() {
-        return AppUtils.concatStrings(getFirstName(), " ", getLastName());
+        return getFirstName() + " " + getLastName();
     }
 
     public User setPasswordEncrypted(String password) {

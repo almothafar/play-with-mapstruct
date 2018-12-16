@@ -5,8 +5,8 @@
 #GET         /view/*any                      controllers.Home.redirectToUI(any)
 #GET         /view                           com.github.mmizutani.playgulp.GulpAssets.redirectRoot(base="/")
 
-GET         /api/accounts/list              controllers.AccountsController.getAccountsList
 GET         /api/accounts/:accountId        controllers.AccountsController.getAccountDetailsById(accountId : Integer)
+GET         /api/accounts                   controllers.AccountsController.getAccountsList
 
 
 GET         /api/users/currentUser          controllers.UsersController.getLoggedInUserDetails

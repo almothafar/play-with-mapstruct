@@ -5,10 +5,11 @@ import play.data.validation.Constraints;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "accounts")
-public class Account extends BaseModel {
+public class Account extends BaseModel<Account> {
 
     @Column(length = 128, nullable = false)
     @Constraints.Required
@@ -25,21 +26,22 @@ public class Account extends BaseModel {
     @Constraints.Min(1)
     private int usersLimit = 5;
 
-    @Column
-    @Constraints.Min(0)
-    private int usersCount = 0;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<User> users;
 
-    public Set<User> getUsers() {
-        return users;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<AccountProject> projects;
+
+    @Transient
+    public int getUsersCount() {
+        return getUsers().size();
     }
 
-    public Account setUsers(Set<User> users) {
-        this.users = users;
-        return this;
+    @Transient
+    public Set<User> getAdmins() {
+        return getUsers().stream().filter(User::isAdmin).collect(Collectors.toSet());
     }
 
     public String getName() {
@@ -69,12 +71,21 @@ public class Account extends BaseModel {
         return this;
     }
 
-    public int getUsersCount() {
-        return usersCount;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public Account setUsersCount(int usersCount) {
-        this.usersCount = usersCount;
+    public Account setUsers(Set<User> users) {
+        this.users = users;
+        return this;
+    }
+
+    public Set<AccountProject> getProjects() {
+        return projects;
+    }
+
+    public Account setProjects(Set<AccountProject> projects) {
+        this.projects = projects;
         return this;
     }
 }

@@ -1,18 +1,30 @@
 package services;
 
 
-import com.google.inject.Singleton;
 import exceptions.BusinessException;
 import io.ebean.Ebean;
 import models.Account;
 import models.User;
+import play.api.i18n.Lang;
+import play.i18n.MessagesApi;
 import utils.MsgKeys;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public final class AccountService extends BaseService {
+public final class AccountService {
+
+    private final UserService userService;
+    private final MessagesApi messagesApi;
+
+    @Inject
+    public AccountService(UserService userService, MessagesApi messagesApi) {
+        this.userService = userService;
+        this.messagesApi = messagesApi;
+    }
 
     public List<Account> findListOfAccounts() {
         return Ebean.find(Account.class).where().findList();
@@ -24,7 +36,7 @@ public final class AccountService extends BaseService {
     }
 
     public Account signup(String email, String accountName, String firstName, String lastName) {
-        User oldUser = getUserService().findUserByEmail(email);
+        User oldUser = userService.findUserByEmail(email);
 
         if (oldUser == null) {
             int usersLimit = 5;
@@ -38,7 +50,7 @@ public final class AccountService extends BaseService {
 //            newAccount.getUsers().add(user);
             return newAccount;
         }
-        throw new BusinessException(getMessage(MsgKeys.ACCOUNT_EMAIL_EXIST));
+        throw new BusinessException(messagesApi.get(Lang.defaultLang(), MsgKeys.ACCOUNT_EMAIL_EXIST));
     }
 
     private User addFirstUserAsAdminForAccount(Account parentAccount, String firstName, String lastName, String email) {
@@ -53,13 +65,7 @@ public final class AccountService extends BaseService {
         user.setPasswordEncrypted(user.getPassword());
         user.setAccount(parentAccount);
         user.save();
-        updateUsersCountForAccount(parentAccount);
         return user;
-    }
-
-    public synchronized void updateUsersCountForAccount(Account account) {
-        account.setUsersCount(getUserService().findActiveUsersForAccount(account.getId()).size());
-        account.update();
     }
 
     public void checkAccountsExpiry() {
