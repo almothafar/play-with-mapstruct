@@ -14,3 +14,5 @@ sbt -Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -Dconfig.file=conf/d
 # Initial data
 You can see `initialAccount` part inside `application.conf` file for the master email/password
 
+# Initial DB
+If you load `development.conf` then you can see the db info you need to create there, otherwise, it is on `application.conf`
