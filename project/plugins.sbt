@@ -11,8 +11,14 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.2.2")
 // enablePlugins(PlayEbean). Note, uncommenting this line will automatically bring in
 // Play enhancer, regardless of whether the line above is commented out or not.
 
-// addSbtPlugin("com.payintech" % "sbt-play-ebean" % "18.11")
+addSbtPlugin("com.payintech" % "sbt-play-ebean" % "18.11")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "4.1.3")
+//addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "4.1.3")
 
 //addSbtPlugin("com.github.mmizutani" % "sbt-play-gulp" % "0.2.0")
+
+//dependencyOverrides ++= Seq(
+//  "io.ebean" % "ebean" % "11.26.1",
+//  "io.ebean" % "ebean-agent" % "11.26.1",
+//  "io.ebean" % "ebean-migration" % "11.11.1"
+//)

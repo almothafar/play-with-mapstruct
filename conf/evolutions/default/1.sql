@@ -3,6 +3,55 @@
 
 # --- !Ups
 
+-- init script create procs
+-- Inital script to create stored procedures etc for mysql platform
+DROP PROCEDURE IF EXISTS usp_ebean_drop_foreign_keys;
+
+delimiter $$
+--
+-- PROCEDURE: usp_ebean_drop_foreign_keys TABLE, COLUMN
+-- deletes all constraints and foreign keys referring to TABLE.COLUMN
+--
+CREATE PROCEDURE usp_ebean_drop_foreign_keys(IN p_table_name VARCHAR(255), IN p_column_name VARCHAR(255))
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE c_fk_name CHAR(255);
+  DECLARE curs CURSOR FOR SELECT CONSTRAINT_NAME from information_schema.KEY_COLUMN_USAGE
+    WHERE TABLE_SCHEMA = DATABASE() and TABLE_NAME = p_table_name and COLUMN_NAME = p_column_name
+      AND REFERENCED_TABLE_NAME IS NOT NULL;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN curs;
+
+  read_loop: LOOP
+    FETCH curs INTO c_fk_name;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    SET @sql = CONCAT('ALTER TABLE ', p_table_name, ' DROP FOREIGN KEY ', c_fk_name);
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+  END LOOP;
+
+  CLOSE curs;
+END
+$$
+
+DROP PROCEDURE IF EXISTS usp_ebean_drop_column;
+
+delimiter $$
+--
+-- PROCEDURE: usp_ebean_drop_column TABLE, COLUMN
+-- deletes the column and ensures that all indices and constraints are dropped first
+--
+CREATE PROCEDURE usp_ebean_drop_column(IN p_table_name VARCHAR(255), IN p_column_name VARCHAR(255))
+BEGIN
+  CALL usp_ebean_drop_foreign_keys(p_table_name, p_column_name);
+  SET @sql = CONCAT('ALTER TABLE ', p_table_name, ' DROP COLUMN ', p_column_name);
+  PREPARE stmt FROM @sql;
+  EXECUTE stmt;
+END
+$$
 create table accounts (
   id                            integer auto_increment not null,
   is_active                     tinyint(1) default 0 not null,
@@ -25,19 +74,6 @@ create table account_project (
   version                       bigint not null,
   constraint uq_account_project_account_id_project_id unique (account_id,project_id),
   constraint pk_account_project primary key (id)
-);
-
-create table auth_tokens (
-  id                            integer auto_increment not null,
-  is_active                     tinyint(1) default 0 not null,
-  user_id                       integer,
-  token                         varchar(255) not null,
-  expire_after                  bigint not null,
-  created_date                  datetime(6) not null,
-  updated_date                  datetime(6) not null,
-  version                       bigint not null,
-  constraint uq_auth_tokens_user_id unique (user_id),
-  constraint pk_auth_tokens primary key (id)
 );
 
 create table products (
@@ -94,8 +130,6 @@ alter table account_project add constraint fk_account_project_account_id foreign
 create index ix_account_project_project_id on account_project (project_id);
 alter table account_project add constraint fk_account_project_project_id foreign key (project_id) references projects (id) on delete restrict on update restrict;
 
-alter table auth_tokens add constraint fk_auth_tokens_user_id foreign key (user_id) references users (id) on delete restrict on update restrict;
-
 create index ix_projects_product_id on projects (product_id);
 alter table projects add constraint fk_projects_product_id foreign key (product_id) references products (id) on delete restrict on update restrict;
 
@@ -111,8 +145,6 @@ drop index ix_account_project_account_id on account_project;
 alter table account_project drop foreign key fk_account_project_project_id;
 drop index ix_account_project_project_id on account_project;
 
-alter table auth_tokens drop foreign key fk_auth_tokens_user_id;
-
 alter table projects drop foreign key fk_projects_product_id;
 drop index ix_projects_product_id on projects;
 
@@ -122,8 +154,6 @@ drop index ix_users_account_id on users;
 drop table if exists accounts;
 
 drop table if exists account_project;
-
-drop table if exists auth_tokens;
 
 drop table if exists products;
 
