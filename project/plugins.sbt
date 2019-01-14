@@ -1,5 +1,5 @@
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.7.0-RC8")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.21")
 
 // Play enhancer - this automatically generates getters/setters for public fields
 // and rewrites accessors of these fields to use the getters/setters. Remove this
@@ -11,9 +11,9 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.7.0-RC8")
 // enablePlugins(PlayEbean). Note, uncommenting this line will automatically bring in
 // Play enhancer, regardless of whether the line above is commented out or not.
 
-//addSbtPlugin("com.payintech" % "sbt-play-ebean" % "18.11")
+addSbtPlugin("com.payintech" % "sbt-play-ebean" % "18.12")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "5.0.0-RC2")
+//addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "5.0.0-RC2")
 
 //addSbtPlugin("com.github.mmizutani" % "sbt-play-gulp" % "0.2.0")
 
