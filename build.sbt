@@ -5,7 +5,7 @@ version := "1.0-SNAPSHOT"
 lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 //gulpForce := false
 
-scalaVersion := "2.12.7"
+scalaVersion := "2.12.8"
 
 // You can easily navigate from error pages to IntelliJ directly into the source code,
 // by using IntelliJ’s “remote file” REST API with the built in IntelliJ web server on port 63342.
